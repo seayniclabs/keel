@@ -1,0 +1,32 @@
+services:
+  web-target:
+    image: nginx:alpine
+    ports:
+      - "18080:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost"]
+      interval: 2s
+      timeout: 2s
+      retries: 5
+
+  ssl-target:
+    image: nginx:alpine
+    ports:
+      - "18443:443"
+    volumes:
+      - ./fixtures/ssl:/etc/nginx/ssl:ro
+      - ./fixtures/nginx-ssl.conf:/etc/nginx/conf.d/default.conf:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "--no-check-certificate", "https://localhost"]
+      interval: 2s
+      timeout: 2s
+      retries: 5
+
+  dns-target:
+    image: coredns/coredns:latest
+    ports:
+      - "15353:53/udp"
+      - "15353:53/tcp"
+    volumes:
+      - ./fixtures/Corefile:/etc/coredns/Corefile:ro
+    command: ["-conf", "/etc/coredns/Corefile"]

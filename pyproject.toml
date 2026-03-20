@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sounding"
+version = "0.1.0"
+description = "Network diagnostics MCP server — ping, DNS, traceroute, SSL, port scanning, and more."
+readme = {text = "Network diagnostics MCP server.", content-type = "text/plain"}
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]",
+    "httpx",
+    "dnspython",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+    "pytest-asyncio",
+    "pip-audit",
+]
+
+[project.scripts]
+sounding = "sounding.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sounding"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

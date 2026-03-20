@@ -1,0 +1,54 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      web-target:
+        image: nginx:alpine
+        ports:
+          - 18080:80
+      # Note: SSL and DNS targets need config volumes — use docker compose in steps instead
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[test]"
+
+      - name: Start test targets
+        run: |
+          docker compose -f tests/docker-compose.test.yml up -d --wait
+        env:
+          COMPOSE_PROJECT_NAME: sounding-test
+
+      - name: Run tests
+        run: |
+          pytest -v --cov=sounding --cov-report=xml --cov-fail-under=90
+        env:
+          SOUNDING_SKIP_DOCKER: "1"
+
+      - name: Security audit
+        run: |
+          pip audit
+
+      - name: Leakage scan
+        run: |
+          ! grep -ri "charlieseay\|seaynicroute\|192\.168\.0" src/ || (echo "LEAK DETECTED" && exit 1)
+
+      - name: Stop test targets
+        if: always()
+        run: |
+          docker compose -f tests/docker-compose.test.yml down -v
