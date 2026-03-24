@@ -34,13 +34,13 @@ Sounding is a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) s
 From PyPI:
 
 ```bash
-pip install sounding
+pip install sounding-mcp
 ```
 
 Or isolated with pipx:
 
 ```bash
-pipx install sounding
+pipx install sounding-mcp
 ```
 
 ## Usage
