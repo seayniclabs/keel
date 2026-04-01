@@ -10,7 +10,7 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12"
 authors = [
-    { name = "Charlie Seay", email = "charlie@seayniclabs.com" },
+    { name = "Seaynic Labs", email = "hello@seayniclabs.com" },
 ]
 keywords = ["mcp", "network", "diagnostics", "dns", "ping", "traceroute", "ssl", "port-scan"]
 classifiers = [
