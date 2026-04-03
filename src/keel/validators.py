@@ -1,4 +1,4 @@
-"""Input validation helpers for Sounding MCP server.
+"""Input validation helpers for Keel MCP server.
 
 Every external input passes through these validators before reaching
 network calls or subprocess invocations.  The goal is defence-in-depth:

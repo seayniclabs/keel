@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "sounding-mcp"
+name = "keel-mcp"
 version = "0.2.0"
 description = "Network diagnostics MCP server — ping, DNS, traceroute, SSL, port scanning, and more."
 readme = "README.md"
@@ -32,9 +32,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/seayniclabs/sounding"
-Repository = "https://github.com/seayniclabs/sounding"
-Issues = "https://github.com/seayniclabs/sounding/issues"
+Homepage = "https://github.com/seayniclabs/keel"
+Repository = "https://github.com/seayniclabs/keel"
+Issues = "https://github.com/seayniclabs/keel/issues"
 
 [project.optional-dependencies]
 test = [
@@ -45,10 +45,10 @@ test = [
 ]
 
 [project.scripts]
-sounding = "sounding.server:main"
+keel = "keel.server:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/sounding"]
+packages = ["src/keel"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

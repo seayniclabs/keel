@@ -1,4 +1,4 @@
-# Sounding
+# Keel
 
 **Network Diagnostics MCP Server**
 
@@ -10,7 +10,7 @@
 
 ## What It Does
 
-Sounding is a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that gives AI assistants 14 network diagnostic tools. It handles the things you'd normally reach for `ping`, `dig`, `nmap`, or `openssl` to do -- but exposed as structured, validated MCP tool calls.
+Keel is a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that gives AI assistants 14 network diagnostic tools. It handles the things you'd normally reach for `ping`, `dig`, `nmap`, or `openssl` to do -- but exposed as structured, validated MCP tool calls.
 
 ## Tools
 
@@ -36,13 +36,13 @@ Sounding is a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) s
 From PyPI:
 
 ```bash
-pip install sounding-mcp
+pip install keel-mcp
 ```
 
 Or isolated with pipx:
 
 ```bash
-pipx install sounding-mcp
+pipx install keel-mcp
 ```
 
 ## Usage
@@ -50,7 +50,7 @@ pipx install sounding-mcp
 Run the server directly (stdio transport):
 
 ```bash
-sounding
+keel
 ```
 
 ### Claude Code
@@ -58,7 +58,7 @@ sounding
 Register as a local MCP server:
 
 ```bash
-claude mcp add sounding -- sounding
+claude mcp add keel -- keel
 ```
 
 ### Claude Desktop
@@ -68,8 +68,8 @@ Add to your `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "sounding": {
-      "command": "sounding",
+    "keel": {
+      "command": "keel",
       "args": []
     }
   }
@@ -81,8 +81,8 @@ If installed in a virtual environment, use the full path to the binary:
 ```json
 {
   "mcpServers": {
-    "sounding": {
-      "command": "/path/to/.venv/bin/sounding",
+    "keel": {
+      "command": "/path/to/.venv/bin/keel",
       "args": []
     }
   }
@@ -91,7 +91,7 @@ If installed in a virtual environment, use the full path to the binary:
 
 ## Security
 
-Sounding is designed to be safe for AI-driven use:
+Keel is designed to be safe for AI-driven use:
 
 - **SSRF protection** -- `http_check` resolves hostnames and blocks requests to internal, private, loopback, and link-local IP addresses (including IPv4-mapped IPv6). Cloud metadata endpoints (169.254.x.x) are blocked.
 - **Input validation** -- All inputs pass through validators that reject shell metacharacters, malformed hostnames, and invalid ports before reaching any network call or subprocess.
@@ -102,8 +102,8 @@ Sounding is designed to be safe for AI-driven use:
 ## Development
 
 ```bash
-git clone https://github.com/seayniclabs/sounding.git
-cd sounding
+git clone https://github.com/seayniclabs/keel.git
+cd keel
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[test]"

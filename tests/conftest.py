@@ -15,9 +15,9 @@ import pytest
 logger = logging.getLogger(__name__)
 
 # Test target addresses — match docker-compose.test.yml ports
-WEB_TARGET = os.getenv("SOUNDING_TEST_WEB", "localhost:18080")
-SSL_TARGET = os.getenv("SOUNDING_TEST_SSL", "localhost:18443")
-DNS_TARGET = os.getenv("SOUNDING_TEST_DNS", "localhost:15353")
+WEB_TARGET = os.getenv("KEEL_TEST_WEB", "localhost:18080")
+SSL_TARGET = os.getenv("KEEL_TEST_SSL", "localhost:18443")
+DNS_TARGET = os.getenv("KEEL_TEST_DNS", "localhost:15353")
 
 COMPOSE_FILE = os.path.join(os.path.dirname(__file__), "docker-compose.test.yml")
 
@@ -30,7 +30,7 @@ def test_targets():
     tests relying only on web-target or dns-target can proceed. Tests
     that need a specific target should check availability themselves.
     """
-    if os.getenv("SOUNDING_SKIP_DOCKER"):
+    if os.getenv("KEEL_SKIP_DOCKER"):
         yield  # Targets already running (e.g., CI service containers)
         return
 

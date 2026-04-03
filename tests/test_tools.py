@@ -11,7 +11,7 @@ from unittest.mock import AsyncMock, patch
 import httpx
 import pytest
 
-from sounding.server import (
+from keel.server import (
     check_ssl_cert,
     dns_lookup,
     dns_propagation,
@@ -27,7 +27,7 @@ from sounding.server import (
     traceroute,
     whois_lookup,
 )
-from sounding import __version__
+from keel import __version__
 
 
 # ── health ─────────────────────────────────────────────────────────────────
@@ -152,7 +152,7 @@ async def test_http_check_web_target(web_target):
     We patch the resolver to allow the test target through.
     """
     host, port = web_target.split(":")
-    with patch("sounding.validators._resolve_and_check"):
+    with patch("keel.validators._resolve_and_check"):
         result = await http_check(f"http://{host}:{port}/")
     assert result["status_code"] == 200
     assert result["total_ms"] > 0
@@ -251,7 +251,7 @@ async def test_get_public_ip_mocked():
     mock_client_instance.__aenter__ = AsyncMock(return_value=mock_client_instance)
     mock_client_instance.__aexit__ = AsyncMock(return_value=False)
 
-    with patch("sounding.server.httpx.AsyncClient", return_value=mock_client_instance):
+    with patch("keel.server.httpx.AsyncClient", return_value=mock_client_instance):
         result = await get_public_ip()
 
     assert result == {"public_ip": "203.0.113.42"}
@@ -266,7 +266,7 @@ async def test_get_public_ip_mocked_error():
     mock_client_instance.__aenter__ = AsyncMock(return_value=mock_client_instance)
     mock_client_instance.__aexit__ = AsyncMock(return_value=False)
 
-    with patch("sounding.server.httpx.AsyncClient", return_value=mock_client_instance):
+    with patch("keel.server.httpx.AsyncClient", return_value=mock_client_instance):
         result = await get_public_ip()
 
     assert "error" in result
@@ -357,7 +357,7 @@ async def test_speed_test_mocked():
     mock_client.__aenter__ = AsyncMock(return_value=mock_client)
     mock_client.__aexit__ = AsyncMock(return_value=False)
 
-    with patch("sounding.server.httpx.AsyncClient", return_value=mock_client):
+    with patch("keel.server.httpx.AsyncClient", return_value=mock_client):
         result = await speed_test()
 
     assert "test_server" in result
@@ -376,7 +376,7 @@ async def test_speed_test_download_error():
     mock_client.__aenter__ = AsyncMock(return_value=mock_client)
     mock_client.__aexit__ = AsyncMock(return_value=False)
 
-    with patch("sounding.server.httpx.AsyncClient", return_value=mock_client):
+    with patch("keel.server.httpx.AsyncClient", return_value=mock_client):
         result = await speed_test()
 
     assert "download" in result

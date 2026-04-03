@@ -1,4 +1,4 @@
-"""Unit tests for sounding.validators — no network or Docker needed."""
+"""Unit tests for keel.validators — no network or Docker needed."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from sounding.validators import (
+from keel.validators import (
     is_internal_ip,
     sanitize_domain,
     validate_host,
@@ -276,7 +276,7 @@ class TestValidateUrlSsrf:
     def test_allows_public_url(self):
         """Public URLs should pass validation."""
         # Mock DNS resolution to return a public IP so test doesn't hit network
-        with patch("sounding.validators.socket.getaddrinfo") as mock_gai:
+        with patch("keel.validators.socket.getaddrinfo") as mock_gai:
             mock_gai.return_value = [
                 (2, 1, 6, "", ("93.184.216.34", 0)),
             ]
@@ -285,7 +285,7 @@ class TestValidateUrlSsrf:
 
     def test_blocks_hostname_resolving_to_internal(self):
         """A hostname that resolves to a private IP should be blocked."""
-        with patch("sounding.validators.socket.getaddrinfo") as mock_gai:
+        with patch("keel.validators.socket.getaddrinfo") as mock_gai:
             mock_gai.return_value = [
                 (2, 1, 6, "", ("10.0.0.1", 0)),
             ]
@@ -333,7 +333,7 @@ class TestValidateHostSsrf:
         assert validate_host("8.8.8.8", allow_internal=False) == "8.8.8.8"
 
     def test_blocks_hostname_resolving_to_internal(self):
-        with patch("sounding.validators.socket.getaddrinfo") as mock_gai:
+        with patch("keel.validators.socket.getaddrinfo") as mock_gai:
             mock_gai.return_value = [
                 (2, 1, 6, "", ("192.168.1.1", 0)),
             ]

@@ -1,4 +1,4 @@
-"""Sounding — network diagnostics MCP server.
+"""Keel — network diagnostics MCP server.
 
 Provides 14 tools for network probing, DNS, SSL inspection, speed testing,
 and more.  Runs over stdio transport via FastMCP.
@@ -20,8 +20,8 @@ import dns.reversename
 import httpx
 from mcp.server.fastmcp import FastMCP
 
-from sounding import __version__
-from sounding.validators import (
+from keel import __version__
+from keel.validators import (
     is_internal_ip,
     sanitize_domain,
     validate_host,
@@ -30,7 +30,7 @@ from sounding.validators import (
     validate_url,
 )
 
-mcp = FastMCP("sounding")
+mcp = FastMCP("keel")
 
 # Rate-limit state for port_scan.
 _last_scan_time: float = 0.0
@@ -687,7 +687,7 @@ async def dns_propagation(
 # ---------------------------------------------------------------------------
 
 def main():
-    """Run the Sounding MCP server over stdio."""
+    """Run the Keel MCP server over stdio."""
     mcp.run()
 
 
