@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.seayniclabs/keel",
+  "title": "Keel",
+  "description": "Network diagnostics — ping, traceroute, DNS, port scanning, and connectivity testing.",
+  "repository": {
+    "url": "https://github.com/seayniclabs/sounding",
+    "source": "github"
+  },
+  "version": "0.2.1",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "keel-mcp",
+      "version": "0.2.1",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

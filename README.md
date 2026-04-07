@@ -113,3 +113,5 @@ python -m pytest tests/ -q
 ## License
 
 [MIT](LICENSE)
+
+<!-- mcp-name: io.github.seayniclabs/keel -->
